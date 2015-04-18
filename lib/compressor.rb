@@ -16,6 +16,8 @@ module Motion::Project
     def extract_concatenated_files(excluded=[])
       @files.flatten!
       @concatenated_files = @files.select { |f| excluded.none? { |excluded_match| !!f.match(excluded_match) } }
+      old_dependencies = @dependencies
+      @dependencies = Dependency.new(@files - @exclude_from_detect_dependencies, @dependencies).run
       @files = @files - @concatenated_files
       @concatenated_files = order_concatenated_files(@concatenated_files)
     end
@@ -47,7 +49,8 @@ module Motion::Project
         concatenated << concat_path
         group_number += 1
       end
-      @files = concatenated + @files
+      @files.unshift(concatenated)
+      @files.flatten!
     end
   end
 end
