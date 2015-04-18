@@ -46,6 +46,12 @@ module Motion::Project
             concat << "\n"
           end
         end
+
+        # Ensure that each file gets loaded in the right order
+        if concatenated.length > 0
+          app.files_dependencies concat_path => concatenated.last
+        end
+
         concatenated << concat_path
         group_number += 1
       end
