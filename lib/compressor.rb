@@ -47,16 +47,15 @@ module Motion::Project
           end
         end
 
+        @files.unshift concat_path
+
         # Ensure that each file gets loaded in the right order
-        if concatenated.length > 0
-          app.files_dependencies concat_path => concatenated.last
+        if concatenated.length > 1
+          files_dependencies concat_path => concatenated[-2]
         end
 
-        concatenated << concat_path
         group_number += 1
       end
-      @files.unshift(concatenated)
-      @files.flatten!
     end
   end
 end
