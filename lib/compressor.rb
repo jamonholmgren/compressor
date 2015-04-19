@@ -7,19 +7,18 @@ end
 module Motion::Project
   class Config
     def concat_files(opts={})
-       files_to_concatenate = extract_concatenated_files(Array(opts[:exclude]))
-       concatenate_files!(files_to_concatenate, opts[:parallel] || 4)
+       concatenate_files!(extract_concatenated_files(Array(opts[:exclude])), opts[:parallel] || 4)
     end
 
     private
 
     def extract_concatenated_files(excluded=[])
       @files.flatten!
-      @concatenated_files = @files.select { |f| excluded.none? { |excluded_match| !!f.match(excluded_match) } }
+      concatenated_files = @files.select { |f| excluded.none? { |excluded_match| !!f.match(excluded_match) } }
       old_dependencies = @dependencies
+      @files = @files - concatenated_files
       @dependencies = Dependency.new(@files - @exclude_from_detect_dependencies, @dependencies).run
-      @files = @files - @concatenated_files
-      @concatenated_files = order_concatenated_files(@concatenated_files)
+      order_concatenated_files(concatenated_files)
     end
 
     def order_concatenated_files(concatenated_files)
