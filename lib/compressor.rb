@@ -37,6 +37,7 @@ module Motion::Project
 
         # Prep the concat path for writing
         Dir.mkdir(File.dirname(concat_path)) unless File.exist?(File.dirname(concat_path))
+        File.new(concat_path, 'w') unless File.exist?(concat_path)
 
         # Concatenate this group of files
         File.open(temp_concat_path, 'a') do |concat|
