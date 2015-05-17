@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-VERSION = "0.0.3"
+VERSION = "0.0.4"
 
 Gem::Specification.new do |gem|
   gem.name          = "compressor"
