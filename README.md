@@ -1,6 +1,8 @@
 # Compressor
 
-Compressor is a RubyMotion gem that speeds up your RubyMotion compile times by concatenating your source files. It typically speeds up your fresh builds by 70-95%.
+Compressor is a RubyMotion gem that speeds up your RubyMotion compile times by concatenating your source files. It typically speeds up your fresh builds by 70-95%.*
+
+\* Not anymore! RubyMotion 3.12 has [vastly improved compile times](http://jamonholmgren.com/speed2/) (spurred partly because of my original article?) and Compressor actually slows down your compiles. So, I would not recommend using it anymore.
 
 ## Installation
 
